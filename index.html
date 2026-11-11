@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diff Viewer</title>
-    <meta name="description" content="Simple diff viewer to compare two texts and highlight additions, deletions, and unchanged lines." />
+    <meta name="description" content="A simple, private diff viewer. Compare text or open two files to see what changed." />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://diff-viewer.example.com/" />
     <meta property="og:title" content="Diff Viewer" />
-    <meta property="og:description" content="Paste two texts and instantly see what changed" />
+    <meta property="og:description" content="Compare text or files and see what changed." />
     <meta property="og:image" content="https://diff-viewer.example.com/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -19,7 +19,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Diff Viewer" />
-    <meta name="twitter:description" content="Compare two texts and instantly see what changed." />
+    <meta name="twitter:description" content="Compare text or files and see what changed." />
     <meta name="twitter:image" content="https://diff-viewer.example.com/og-image.png" />
 
     <link rel="stylesheet" href="styles.css" />
@@ -33,41 +33,52 @@
 
     <main class="container">
       <div class="editors-grid">
-        <div class="editor-pane">
+        <div class="editor-pane" data-side="original">
           <div class="pane-header">
             <span class="pane-label label-original">Original</span>
+            <button type="button" class="open-file" data-open="original" aria-label="Open original file">open file</button>
+            <input type="file" id="original-file" class="file-input" tabindex="-1" aria-label="Original file" />
           </div>
+          <div id="original-meta" class="file-meta" hidden></div>
+          <div id="original-preview" class="source-preview" hidden></div>
           <textarea
             id="original"
-            placeholder="Paste original text here…"
+            placeholder="Paste text or drop a file…"
             spellcheck="false"
             autocomplete="off"
             aria-label="Original text"
           ></textarea>
+          <p id="original-status" class="source-status" role="status" hidden></p>
         </div>
 
-        <div class="editor-pane">
+        <div class="editor-pane" data-side="modified">
           <div class="pane-header">
             <span class="pane-label label-modified">Modified</span>
+            <button type="button" class="open-file" data-open="modified" aria-label="Open modified file">open file</button>
+            <input type="file" id="modified-file" class="file-input" tabindex="-1" aria-label="Modified file" />
           </div>
+          <div id="modified-meta" class="file-meta" hidden></div>
+          <div id="modified-preview" class="source-preview" hidden></div>
           <textarea
             id="modified"
-            placeholder="Paste modified text here…"
+            placeholder="Paste text or drop a file…"
             spellcheck="false"
             autocomplete="off"
             aria-label="Modified text"
           ></textarea>
+          <p id="modified-status" class="source-status" role="status" hidden></p>
         </div>
       </div>
 
       <div class="toolbar">
         <button id="compare-btn" class="btn btn-primary">compare</button>
         <button id="clear-btn" class="btn btn-ghost">clear</button>
+        <span class="local-note">files stay in your browser</span>
       </div>
 
       <diff-output id="diff-output" role="region" aria-label="Diff output"></diff-output>
     </main>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>
